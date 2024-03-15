@@ -1,0 +1,109 @@
+Un processeur graphique, ou GPU (de l'anglais Graphics Processing Unit), également appelé coprocesseur graphique sur certains systèmes, est une unité de calcul assurant les fonctions de calcul d'image. Il peut être présent sous forme de circuit intégré (ou puce) indépendant, soit sur une carte graphique ou sur la carte mère, ou encore intégré au même circuit intégré que le microprocesseur général (on parle d'un SoC lorsqu'il comporte toutes les puces spécialisées). Dans la terminologie d'AMD un GPU intégré à la même puce que le processeur est appelé APU, et dans la terminologie d'Intel un IGP). La sortie peut être affichée à l'écran, ou retraitée en RAM ou VRAM pour différents usages tels que l'écriture sur mémoire de masse ou un nouveau traitement interne. Un processeur graphique a généralement une structure hautement parallèle (voir accélération matérielle) qui le rend efficace pour une large palette de tâches graphiques comme le rendu géométrique 2D ou 3D, s'opérant généralement dans une mémoire vidéo dédiée. Une unité de traitement du signal vidéo peut être couplée à ce processeur pour le décodage ou l'encodage de vidéo dans différents formats tels que Mpeg, etc. Enfin, ce parallélisme permet également le calcul intensif en général, lorsqu'il s'agit d'un GPGPU (anglais : General Purpose GPU, signifiant GPU à vocation généraliste).
+
+Les bibliothèques d'utilisation de ces processeurs les plus répandues sont les standards OpenGL et Vulkan, la bibliothèque spécifique à Microsoft Windows, Direct3D et la bibliothèque spécifique à MacOS, Metal. La bibliothèque standard OpenCL est dédiée au calcul intensif, et une plus spécifique créée par Nvidia est CUDA.
+
+Leur parallélisme poussé les rend aussi intéressants comme processeurs de calcul matriciel, pour casser des codes en « force brute »1, de minage de cryptomonnaies, ou pour la création de corpus d'intelligence artificielle2.
+
+Enfin, leur rapport performance/prix les avantage pour le calcul3.
+
+
+Un processeur graphique GeForce 6600GT de Nvidia.
+Types de processeurs graphiques
+Il existe différents types de processeurs graphiques, également appelés processeurs géométriques.
+
+Les tâches graphiques au sein de premiers systèmes informatiques étaient partagées entre processeur géométrique (quand il y en avait un) et processeur vidéo (indispensable pour envoyer l'image à afficher vers l'écran). Le premier est chargé de faire des opérations graphiques au sein de la mémoire, allégeant ainsi le processeur général de cette tâche.
+
+Aujourd'hui on parle également de processeur vidéo pour désigner un processeur de traitement de signal, utilisé pour le décodage de vidéogrammes, ça n'est pas le sujet abordé ici. Les processeurs vidéos dans leur fonction graphique, permettent sur les premiers systèmes informatiques de modifier l'image au moment de l'envoyer à l'écran, alors typiquement, un écran à balayage, utilisant un canon à électrons parcourant l'écran de gauche à droite et de haut en bas. Ce processeur est synchronisé avec le balayage, et permet donc de gérer de façon synchrone plus ou moins de modification sur l'image (position à lire en mémoire, couleur), évitant ainsi le processeur principal et le processeur graphique de tâches lourdes comme des modifications ou transferts de mémoire.
+
+Processeur vidéo
+Article détaillé : Processeur vidéo.
+Table d'éléments graphiques
+Ils ont généralement un mode texte, dans lequel une table contient les codes des caractères à afficher, en 8 bits, et une autre table fait la liaison entre le code du caractère et l'emplacement mémoire au sein du système du motif les représentant. Des motifs sont généralement présents en ROM ou EPROM, et il est alors possible de les remplacer par un motif défini par logiciel en RAM.
+
+Les consoles de jeu et bornes d'arcades 8 et 16 bits ont généralement un système similaire pour les décors. Une table des tuiles graphiques à afficher à l'écran, généralement plus grande que l'écran affiché afin de permettre les défilements de l'écran, et une table définissant leur emplacement en mémoire.
+
+Raster
+Depuis les ordinateurs 8 bits, il est également possible, à l'aide du processeur vidéo d'opérer des changements en fonction de la position de l'élément en cours de traçage (en anglais : raster) à l'écran. Les coordonnées actuelles sont déterminées à partir des signaux de synchronisation verticale (VBLANK, 1 par image) et horizontale (HBLANK, 1 par ligne), et du temps pendant lequel l'information d'un pixel est envoyée. Il est alors possible de changer la couleur de la palette ou du fond de l'écran par exemple. Ce principe était souvent utilisé sur les ordinateurs 8 bits pour signaler un chargement ou une décompression en cours. Ce principe a également été utilisé pour afficher des dégradés et différents effets dans les démos.
+
+Sprite et bitplan
+Le sprite est un objet graphique, superposé à l'image de fond par le processeur vidéo. Si sa couleur est transparente, il envoie l'information mémoire de l'image de fond, si elle est opaque, il envoie l'information du sprite lui-même. Sur de nombreux systèmes le nombre de sprites était limité en largeur (nécessité de parcourir la mémoire des différents sprites au moment d'afficher la ligne horizontale). Selon les systèmes, cette limite est plus souple verticalement en raison de la dépendance au Raster. Il est principalement utilisé dans le domaine des jeux vidéo, mais est également utilisé dans les interfaces graphiques, pour afficher le curseur.
+
+Le plan d'image (anglais : bitplan) est similaire au sprite mais sur une image entière, selon les systèmes il est plus ou moins limité. Par exemple sur un système dont la mémoire à une limite d'un écran complet en 8 bits, pourra afficher 2 plans images 4 bits, il faut également prendre en compte les limites dans les opérations de mixage de ces plans, limitées dans le temps.
+
+Les SoC utilisés aujourd'hui sur les téléphones conservent toujours ces possibilités.
+
+Processeur géométrique 2D
+Une des fonctions premières d'un processeur géométrique 2D est celle de blitter. Il sert à la copie d'image de part et d'autre de la RAM (principale ou vidéo selon les systèmes), avec ou sans gestion de la transparence pour le mixage. La transparence peut être gérée via un masque de transparence (contenant une version de l'image où 0 signifie transparent et 1, ou autre valeur selon les capacités, signifie opaque ou translucide), ou via une valeur dans l'image dédiée à la transparence. Cela permet de complémenter la présence ou de compenser l'absence d'un processeur vidéo gérant les sprites ou les multiples plans de bits. On retrouve par exemple cette fonction dans Denise (Amiga), ou G2D (certains processeurs ARM, notamment Samsung, AllWinner, Rockchip, NXP).
+
+Certains processeurs vectoriels 2D, comme celui de la console de jeu 8 bits Vectrex, gèrent uniquement des objets vectoriels, tels que des segments de droite.
+
+Processeur géométrique 3D
+Il est chargé de faire des calculs en trois dimensions, c'est-à-dire de représenter dans l'espace des objets géométriques.
+
+Silicon Graphics, en 1992, est un pionnier dans le domaine, en sortant des stations de travail équipées de processeurs graphiques spécialisés en 3D. Ils créent également le langage OpenGL qui deviendra ensuite un standard ouvert, géré par le consortium industriel Khronos Group, qui le fait évoluer vers Vulkan.
+
+Selon les processeurs, il a des fonctions plus ou moins avancées : tracé de droite, de polygones, modification géométrique d'image pour les textures, anticrénelage, sont des fonctions de base.
+
+GPGPU
+Article détaillé : GPGPU (General-purpose processing on graphics processing units).
+Les fonctions de traitement d'image des processeurs géométrique 3d utilisant, au fur et à mesure de leur évolution de plus en plus les mêmes instructions qu'un processeur vectoriel, les deux fonctions ont été réunies au sein de ce que l'on appelle un GPGPU (signifiant littéralement processeur graphique à but généraliste). Cela a permis de démocratiser ces derniers.
+
+Il permet en plus de faire des opérations géométriques 2D et 3D, des opérations d'algèbre linéaire complexes, et avec un bon niveau de parallélisme. Il est principalement utilisé en calcul intensif, que ce soit dans le rendu d'images avancé, ou le calcul scientifique (analyse numérique).
+
+Intégration du processeur dans un système
+Ces processeurs peuvent être intégrés de différentes manières dans un système informatique :
+
+une puce dédiée, soudée sur la carte mère, c'était le cas sur les micro-ordinateurs 8 et 16 bits et 16⁄32 bits (comme la puce Agnus de l'Amiga), ou les bornes d'arcades des années 1980 (un processeur secondaire pouvant être dédié pour le calcul graphique), des consoles de jeu 8 et 16 bits, ainsi que quelques micro-ordinateurs 32 bits des années 1990) ;
+une puce dédiée, soudée sur une carte graphique, notamment sur les compatibles IBM PC (cartes CGA, EGA, VGA, SVGA, etc., jusqu'à nos jours) ;
+un processeur intégré à un SoC (une puce, regroupant l'ensemble du système, dont ; processeur principal, graphique, sonore, vidéo, réseau, etc.), c'est le cas notamment de la majorité des puces d'architecture ARM, tels que sur les téléphones mobiles, tablettes tactiles, box internet, SBC, etc. ;
+un processeur intégré à un APU, le processeur principal et le processeur graphique sont intégrés dans la même puce. Intel et AMD se sont inspirés d'ARM, pour améliorer les performances des échanges entre le processeur principal et le processeur graphique en intégrant leurs propres circuits graphiques à leurs processeurs.
+Fonctionnement
+Les sommets (en anglais vertex) de polygones constituent les données élémentaires de la géométrie en trois dimensions et par là des processeurs graphiques. Ce sont les points entre lesquels seront tracées les arêtes d’un objet et par lesquels le processeur construit les objets multidimensionnels. Si les objets sont en deux dimensions, ou s’il s’agit de vidéos, les données sont directement envoyées à la fenêtre d’affichage.
+
+Pour accélérer le calcul, le processeur recherche les sommets invisibles (cachés par d’autres sommets, par les faces d’un objet ou autrement) et les supprime pour ne pas avoir à les gérer.
+
+Le processeur graphique applique ensuite aux faces des objets les textures puisées sur le disque dur grâce au pipeline graphique (Pixel Pipeline). Le moteur graphique envoie ensuite au processeur des données sur l’éclairage des polygones, que celui-ci se charge de mettre en œuvre pour éclairer la scène. Ensuite, la puce graphique applique à l’image les divers filtres (anticrénelage ou filtrage anisotrope), et envoie le résultat à la fenêtre d’affichage, qui « aplatit » l’image pour l’afficher à l’écran.
+
+Implémentations matérielles
+Il existe différentes organisations des architectures informatiques dans lesquels les processeurs graphiques sont utilisés.
+
+Puce sur carte mère
+Sur les premiers micro-ordinateurs, le processeur graphique était un circuit intégré (ou puce), situé sur la carte mère de l'ordinateur. C'est également le cas généralement sur les consoles de jeu, ou encore aujourd'hui sur les ordinateurs à carte unique.
+
+Carte graphique dédiée
+Article détaillé : Carte graphique.
+Il s’agit du type de processeur graphique le plus puissant. Le processeur est généralement situé sur une carte interfacée avec la carte mère de l’ordinateur par un port PCI Express pour les machines récentes (AGP ou PCI pour les machines plus anciennes) ; quant aux ordinateurs portables, certains disposent d’une déclinaison spécifique du port PCI Express, le MXM ou Mobile PCI-Express Module. Ces cartes disposent de leur propre mémoire vive.
+
+SoC
+Dans les System On Chip (SoC), le processeur graphique est situé dans le même circuit intégré que le processeur principal , le processeur sonore, et les autres composants principaux du système. Un bus interne au circuit intégré permet d'échanger les informations entre ses différentes composantes.
+
+Processeur graphique intégré (IGP)
+	
+Cette section ne cite pas suffisamment ses sources (avril 2020). 
+Ces processeurs graphiques sont intégrés dans le northbridge sur la carte mère de l’ordinateur ou directement au processeur central (à partir de la famille de processeurs Westmere chez Intel), et utilisent sa mémoire vive ou plus rarement une faible quantité de mémoire dédiée. Ces processeurs graphiques sont moins performants que ceux des cartes graphiques dédiées, mais ils sont moins coûteux, plus faciles à intégrer et moins consommateurs en énergie. Les ordinateurs portables anciens et/ou d'entrée de gamme utilisent cette méthode afin de réduire les coûts.
+
+Les IGP suffisent si le matériel n'est pas sollicité par les jeux modernes ou des programmes utilisant de grandes quantités de ressources graphiques. Les cartes mères anciennes ont souvent un processeur graphique intégré et un (ou plusieurs) port permettant d’ajouter une carte graphique dédiée. Ce type d'IGP tend cependant à disparaître au profit des processeurs graphiques intégrés directement dans les CPU plus récents. Le défaut majeur de ces derniers est que l'ensemble CPU/GPU est limité par la puissance maximale pouvant être reçue par le biais du socket. CPU et GPU ne peuvent donc fonctionner ensemble au maximum de leur fréquence respective si la somme des puissances nécessaires dépasse la puissance maximale réelle pouvant être admise. Cela nécessite donc un bridage de l'un pour obtenir de meilleurs résultats avec l'autre. En d'autres termes, quand l'un est au maximum, l'autre doit passer en économie. Les jeux les plus récents deviendront injouables et les logiciels utilisant essentiellement beaucoup de graphisme seront limités si le CPU est sollicité au détriment du GPU. Et vice versa, des logiciels de compression de données ou ayant besoin essentiellement du CPU seront plus lents si celui-ci est bridé au profit du GPU. Par contre, il est possible de jouer sans problème à des jeux plus anciens qui ne demandent pas beaucoup de ressources en termes de couple CPU/GPU ou en désactivant bonne quantité d'options graphiques.
+
+Bien que ce type de configuration se démocratise de plus en plus, une configuration plus classique CPU et carte graphique supplémentaire reste plus efficace car la bande passante dédiée utilisée par la carte graphique permet de soulager le CPU, laissant ainsi à ce dernier la totalité de la puissance du socket. Une carte graphique, même bas de gamme, obtiendra de meilleurs résultats qu'un IGP car non bridée par un partage de circuit avec le CPU. Ainsi, pour un joueur occasionnel ou quelqu'un évoluant dans le domaine du multimédia, une carte bas de gamme se révélera utile, voire quasi-indispensable, afin de profiter de meilleurs rendus sans pour autant dépenser beaucoup d'argent. Cependant cet investissement supplémentaire n'est pas intéressant pour un utilisateur limitant l'utilisation de sa machine à de la bureautique ou de la recherche sur internet, car demandant peu de ressources. Il lui sera alors plus avantageux de se contenter d'un IGP. De plus, les améliorations à chaque nouvelle génération de processeurs intégrant une partie graphique permet parfois de rattraper cet écart de puissance avec les cartes graphiques bas de gamme, voire les dépasser dans certains cas.
+
+Il est aussi possible pour un utilisateur possédant un ensemble « CPU/IGP/carte graphique » d'activer le GPU intégré au processeur principal et donc, par l'intermédiaire de programmes fournis ou présents sur les sites des fabricants de ces composants, de faire la transition entre le GPU du processeur et la carte graphique adjointe au système et ainsi optimiser la consommation électrique. Par exemple, une carte graphique performante destinée aux jeux et consommant beaucoup en puissance peut être désactivée pendant une session de bureautique par un pilote permettant d'attribuer à chaque programme installé un GPU spécifique.
+
+Choisir un processeur graphique
+Un processeur graphique a pour fonction principale de traiter les calculs graphiques complexes afin de soulager le CPU de ces tâches. Pour autant, cela ne signifie pas que ces deux composants soient totalement indépendants. En effet, il existe plusieurs problèmes pouvant subsister si un mauvais équilibre entre le processeur central et le processeur graphique est présent. Ainsi, il ne sert à rien d'opter pour une carte graphique très performante si elle est bridée par les performances du CPU. On utilise alors le terme de « CPU limited » (littéralement « limité par le CPU »). À l'inverse, si l'utilisateur se procure un processeur très performant mais choisit une carte graphique ayant peu de performances ou se contentant de l'IGP, il ne pourra pas obtenir de bons rendus graphiques fluides si ceux-ci nécessitent de gros calculs graphiques. Il faut donc pouvoir équilibrer le plus possible les performances afin d'en tirer le meilleur4.
+
+Pour une personne travaillant sur de la bureautique, faisant des recherches sur internet, ou des utilisations polyvalentes, un IGP ou une carte graphique d'entrée de gamme suffit. Pour une utilisation dans le domaine de la 3D, que ce soit en jeu vidéo, ou en modélisation 3D simple il vaut mieux un IGP haut de gamme, ou une carte graphique dédiée. Enfin, dans le cas de montage vidéo, de modélisation 3D complexe ou la volonté d'utiliser les derniers jeux vidéo complexes, au maximum de leurs performances, une à plusieurs cartes graphiques dédiées haut de gamme peuvent être nécessaires. Il est dans tous les cas, souvent possible d'ajouter une à plusieurs cartes graphiques supplémentaires si la puissance de base est insuffisante à l’utilisation qui en est faite du système informatique. C'est le cas surtout des joueurs exigeants au sujet des graphismes ou des professionnels en montage photo/vidéo de haut niveau ou en CAO/DAO4.
+
+Fabricants
+
+Part de marché des principaux fabricants de processeurs.
+Fabricants des processeurs
+Peu d’entreprises conçoivent de tels processeurs : les plus connues sont NVIDIA, AMD (anciennement ATI) et Intel. Il y a aussi d'autres fabricants désormais moins importants, ou moins connus du grand public, comme Qualcomm, S3 Graphics, Matrox, 3DLabs (en), ARM XGI (en). Ces entreprises sont dites « fabless », c'est-à-dire qu'elles conçoivent les circuits graphiques, mais ne les fabriquent pas en série.
+
+Fabricants des cartes graphiques
+D'autres entreprises (Asus, MSI, PNY…) se chargent ensuite de proposer des cartes graphiques intégrant ces processeurs. Ce sont les entreprises constructrices. Celles-ci prennent en général une certaine liberté de modification des fréquences de fonctionnement des GPU par rapport aux fréquences de base préconisées par les concepteurs. C'est le principe de l'overclocking. Bien entendu, ces modifications nécessitent un choix rigoureux dans le système de refroidissement, car bien souvent, les fréquences en hausse provoquent également en contrepartie une hausse de température, à l'image des CPU. Ces fréquences varient entre les constructeurs et selon les modèles et les systèmes de refroidissement proposés par ces entreprises. L'écart de performance entre les modèles de référence (fournis par les concepteurs) et les constructeurs varie et certains GPU personnalisés peuvent même présenter un gain non négligeable par rapport au GPU de référence.
+
+Notes et références
+« Peut-on casser un mot de passe avec une carte graphique ? » [archive], Tom's Hardware, 18 juillet 2011.
+utilisation pour l'intelligence artificielle [archive]
+ZDNet, août 2016 [archive] : « Il est bien plus intéressant de nos jours de laisser les GPU s'occuper de ces tâches plutôt que de tout confier au CPU qui a un rapport qualité prix/puissance bien moins intéressant (l'exemple le plus flagrant est le rendu 3D qui est bien plus rapide avec un GPU qu'un CPU à prix équivalent, rapport 10 à 50). »
+Canard PC Harware no 1 à 28 : voir les conseils de sélection de matériel mis à jour à chaque parution trimestrielle.
